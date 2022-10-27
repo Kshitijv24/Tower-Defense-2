@@ -19,9 +19,4 @@ public class EnemyMovement : MonoBehaviour
             yield return new WaitForSeconds(1f);
         }
     }
-
-    private void Update()
-    {
-        
-    }
 }
