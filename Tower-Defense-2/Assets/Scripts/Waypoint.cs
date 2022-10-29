@@ -2,12 +2,9 @@ using UnityEngine;
 
 public class Waypoint : MonoBehaviour
 {
-    const int gridSize = 10;
+    public bool isExplored = false;
 
-    private void Start()
-    {
-        
-    }
+    const int gridSize = 10;
 
     public int GetGridSize()
     {

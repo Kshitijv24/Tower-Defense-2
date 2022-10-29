@@ -7,29 +7,76 @@ public class Pathfinder : MonoBehaviour
     [SerializeField] Waypoint startWaypoint, endWaypoint;
 
     Dictionary<Vector2Int, Waypoint> grid = new Dictionary<Vector2Int, Waypoint>();
+    Queue<Waypoint> queue = new Queue<Waypoint>();
 
     Vector2Int[] directions = { Vector2Int.up, Vector2Int.right, Vector2Int.down, Vector2Int.left };
+
+    bool isRunning = true;
 
     private void Start()
     {
         LoadBlocks();
         ColorStartAndEndBlock();
-        ExploreNeighbours();
+        Pathfind();
+        //ExploreNeighbours();
     }
 
-    private void ExploreNeighbours()
+    private void Pathfind()
     {
+        queue.Enqueue(startWaypoint);
+
+        while(queue.Count > 0 && isRunning)
+        {
+            Waypoint searchCenter = queue.Dequeue();
+            print("Searching from: " + searchCenter);
+            HaltIfEndFound(searchCenter);
+            ExploreNeighbours(searchCenter);
+            searchCenter.isExplored = true;
+        }
+
+        print("Finished pathfinding?");
+    }
+
+    private void HaltIfEndFound(Waypoint searchCenter)
+    {
+        if(searchCenter == endWaypoint)
+        {
+            print("Searching from end node, therefore stopping");
+            isRunning = false;
+        }
+    }
+
+    private void ExploreNeighbours(Waypoint from)
+    {
+        if(!isRunning) { return; }
+
         foreach(Vector2Int direction in directions)
         {
-            Vector2Int exploringCoordinates = startWaypoint.GetGridPos() + direction;
+            Vector2Int neighbourCoordinates = from.GetGridPos() + direction;
             try
             {
-                grid[exploringCoordinates].SetCubeColor(Color.grey);
+                QueueNewNeighbours(neighbourCoordinates);
             }
             catch
             {
-                Debug.Log("Coordinate " + exploringCoordinates + " does not exsist in the grid");
+                // do nothing
             }
+        }
+    }
+
+    private void QueueNewNeighbours(Vector2Int neighbourCoordinates)
+    {
+        Waypoint neighbour = grid[neighbourCoordinates];
+
+        if (neighbour.isExplored)
+        {
+            // do nothing.
+        }
+        else
+        {
+            neighbour.SetCubeColor(Color.grey);
+            queue.Enqueue(neighbour);
+            print("Queueing " + neighbour);
         }
     }
 
