@@ -3,11 +3,20 @@ using System.Collections.Generic;
 
 public class Pathfinder : MonoBehaviour
 {
+    [SerializeField] Waypoint startWaypoint, endWaypoint;
+
     Dictionary<Vector2Int, Waypoint> grid = new Dictionary<Vector2Int, Waypoint>();
 
     private void Start()
     {
         LoadBlocks();
+        ColorStartAndEndBlock();
+    }
+
+    private void ColorStartAndEndBlock()
+    {
+        startWaypoint.SetTopColor(Color.green);
+        endWaypoint.SetTopColor(Color.red);
     }
 
     private void LoadBlocks()
@@ -27,6 +36,5 @@ public class Pathfinder : MonoBehaviour
                 grid.Add(gridPos, waypoint);
             }
         }
-        Debug.Log("Loaded " + grid.Count + " blocks");
     }
 }
