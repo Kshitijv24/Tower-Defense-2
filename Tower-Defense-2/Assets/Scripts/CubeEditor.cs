@@ -25,9 +25,9 @@ public class CubeEditor : MonoBehaviour
         int gridSize = waypoint.GetGridSize();
         
         transform.position = new Vector3(
-            waypoint.GetGridPos().x,
+            waypoint.GetGridPos().x * gridSize,
             0f,
-            waypoint.GetGridPos().y);
+            waypoint.GetGridPos().y * gridSize);
     }
 
     private void UpdateLabel()
@@ -35,10 +35,10 @@ public class CubeEditor : MonoBehaviour
         TextMeshPro textMeshPro = GetComponentInChildren<TextMeshPro>();
         int gridSize = waypoint.GetGridSize();
 
-        string labelText = 
-            waypoint.GetGridPos().x / gridSize + 
-            "," + 
-            waypoint.GetGridPos().y / gridSize;
+        string labelText =
+            waypoint.GetGridPos().x +
+            "," +
+            waypoint.GetGridPos().y;
 
         textMeshPro.text = labelText;
         gameObject.name = labelText;
