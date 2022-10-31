@@ -19,7 +19,7 @@ public class Pathfinder : MonoBehaviour
     public List<Waypoint> GetPath()
     {
         LoadBlocks();
-        ColorStartAndEndBlock();
+        //ColorStartAndEndBlock();
         BreadthFirstSearch();
         CreatePath();
         return path;
