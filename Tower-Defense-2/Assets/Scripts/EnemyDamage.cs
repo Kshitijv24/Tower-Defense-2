@@ -6,7 +6,6 @@ public class EnemyDamage : MonoBehaviour
 
     private void OnParticleCollision(GameObject other)
     {
-        Debug.Log("I am hit");
         ProcessHit();
     }
 
@@ -17,6 +16,5 @@ public class EnemyDamage : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        print("Current hitpoints are: " + hitPoints);
     }
 }
