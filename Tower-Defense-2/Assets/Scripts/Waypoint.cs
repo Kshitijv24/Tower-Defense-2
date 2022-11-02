@@ -3,7 +3,10 @@ using UnityEngine;
 public class Waypoint : MonoBehaviour
 {
     public bool isExplored = false;
+    public bool isPlaceable = true;
     public Waypoint exploredFrom;
+
+    [SerializeField] Tower towerPrefab;
 
     const int gridSize = 10;
 
@@ -19,9 +22,19 @@ public class Waypoint : MonoBehaviour
             Mathf.RoundToInt(transform.position.z / gridSize));
     }
 
-    public void SetCubeColor(Color color)
+    private void OnMouseOver()
     {
-        MeshRenderer cubeMeshRenderer = transform.Find("Cube").GetComponent<MeshRenderer>();
-        cubeMeshRenderer.material.color = color;
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (isPlaceable)
+            {
+                Instantiate(towerPrefab, transform.position, transform.rotation);
+                isPlaceable = false;
+            }
+            else
+            {
+                print("Can't place tower here");
+            }
+        }
     }
 }
