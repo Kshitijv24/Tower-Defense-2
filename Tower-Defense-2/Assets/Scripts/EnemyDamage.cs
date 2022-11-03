@@ -15,11 +15,13 @@ public class EnemyDamage : MonoBehaviour
     {
         hitPoints--;
         hitParticlePrefab.Play();
+        
         if (hitPoints <= 0)
         {
             ParticleSystem enemyDeathVfx = Instantiate(deathParticlePrefab, transform.position, transform.rotation);
             
             enemyDeathVfx.Play();
+            Destroy(enemyDeathVfx.gameObject, enemyDeathVfx.main.duration);
             Destroy(gameObject);
         }
     }
