@@ -25,6 +25,8 @@ public class EnemyDamage : MonoBehaviour
             
             enemyDeathVfx.Play();
             Destroy(enemyDeathVfx.gameObject, enemyDeathVfx.main.duration);
+
+            AudioSource.PlayClipAtPoint(enemyDeathSFx, Camera.main.transform.position);
             Destroy(gameObject);
         }
     }
